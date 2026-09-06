@@ -1,1 +1,1 @@
-{"version":3,"file":"timeline-engine.d.ts","sourceRoot":"","sources":["../src/timeline-engine.ts"],"names":[],"mappings":"AAAA;;;GAGG;AAEH,OAAO,KAAK,EAGV,qBAAqB,EAErB,iBAAiB,EAGlB,MAAM,YAAY,CAAC;AAkBpB,wBAAgB,oBAAoB,CAClC,WAAW,EAAE,qBAAqB,GACjC,iBAAiB,CA8KnB"}
+{"version":3,"file":"timeline-engine.d.ts","sourceRoot":"","sources":["../src/timeline-engine.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAGV,qBAAqB,EAErB,iBAAiB,EAGlB,MAAM,YAAY,CAAC;AAkBpB,wBAAgB,oBAAoB,CAClC,WAAW,EAAE,qBAAqB,GACjC,iBAAiB,CA8KnB"}

@@ -1,7 +1,3 @@
-/**
- * Animation Frame Driver
- * requestAnimationFrame scheduling, timeline orchestration, and animation management.
- */
 export type { EasingFunction, EasingName, AnimationFrameCallback, EnvironmentAdapterAPI, SchedulerConfig, SchedulerAPI, TimelineDirection, TimelineFillMode, TimelineState, TimelineConfig, TimelineHandle, TimelineEngineAPI, VisibilityConfig, VisibilityControllerAPI, AnimationNodeType, AnimationNodeConfig, AnimationGraphState, AnimationGraphHandle, AnimationGraphAPI, PlaybackState, PlaybackControllerAPI, CleanupManagerAPI, FrameTimeHistogram, FrameMetrics, PerformanceMonitorAPI, LegacyTimeline, AnimationFrameDriverConfig, AnimationFrameDriverAPI, } from './types.js';
 export { createEnvironmentAdapter } from './environment-adapter.js';
 export { easings, getEasing, createCubicBezier } from './easings.js';

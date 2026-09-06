@@ -1,7 +1,3 @@
-/**
- * Visibility-Aware Throttling + Background Tab Throttling
- * Auto pause/resume via Page Visibility API with configurable background FPS limits.
- */
 export function createVisibilityController(environment, config = {}) {
     const backgroundFPS = config.backgroundFPS ?? 0;
     const autoPause = config.autoPause ?? true;
@@ -15,7 +11,6 @@ export function createVisibilityController(environment, config = {}) {
         if (nowVisible === visible)
             return;
         if (nowVisible) {
-            // Becoming visible
             if (resumeDelay > 0) {
                 resumeTimer = globalThis.setTimeout(() => {
                     resumeTimer = null;
@@ -33,7 +28,6 @@ export function createVisibilityController(environment, config = {}) {
             }
         }
         else {
-            // Becoming hidden
             visible = false;
             throttled = autoPause || backgroundFPS > 0;
             if (resumeTimer !== null) {
@@ -44,10 +38,8 @@ export function createVisibilityController(environment, config = {}) {
                 cb(false);
         }
     }
-    // Attach listener if in browser
     if (environment.isBrowser && typeof globalThis.document?.addEventListener === 'function') {
         globalThis.document.addEventListener('visibilitychange', handleVisibilityChange);
-        // Set initial state
         visible = !globalThis.document.hidden;
     }
     return {

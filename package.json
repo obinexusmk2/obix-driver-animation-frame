@@ -1,6 +1,6 @@
 {
   "name": "@obinexusltd/obix-driver-animation-frame",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "OBIX Animation Frame Driver - requestAnimationFrame scheduling and timeline orchestration",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,8 +10,15 @@
     "test": "vitest run"
   },
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "docs"
   ],
+  "directories": {
+    "lib": "dist",
+    "doc": "docs",
+    "test": "test"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -22,5 +29,8 @@
   "author": "OBINexus <okpalan@protonmail.com>",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "~5.4.0"
   }
 }

@@ -1,7 +1,3 @@
-/**
- * Automatic Cleanup & Reference Management
- * WeakRef-based GC, AbortSignal cancellation, and FinalizationRegistry cleanup.
- */
 export function createCleanupManager() {
     const entries = new Set();
     const abortCleanups = new Map();

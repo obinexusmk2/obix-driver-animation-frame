@@ -1,7 +1,3 @@
-/**
- * High-Precision Timeline Engine
- * Monotonic clock-based timeline with drift correction and time-slicing.
- */
 import { getEasing } from './easings.js';
 export function createTimelineEngine(environment) {
     let idCounter = 0;
@@ -23,7 +19,6 @@ export function createTimelineEngine(environment) {
         const iteration = Math.floor(clampedElapsed / duration);
         const done = isFinite(iterations) && clampedElapsed >= totalDuration;
         let linear = done ? 1 : (clampedElapsed % duration) / duration;
-        // Apply direction
         let shouldReverse = false;
         if (direction === 'reverse') {
             shouldReverse = true;
@@ -89,7 +84,6 @@ export function createTimelineEngine(environment) {
             };
             timelines.set(id, tl);
             const handle = createHandle(tl);
-            // Auto-play after delay
             const delay = config.delay ?? 0;
             if (delay > 0) {
                 globalThis.setTimeout(() => {
@@ -109,8 +103,7 @@ export function createTimelineEngine(environment) {
                 if (tl.state !== 'running')
                     continue;
                 const rawElapsed = timestamp - tl.startTime - tl.pauseOffset;
-                // Time-slicing: cap delta at 2x expected frame time to avoid huge jumps
-                const maxDelta = (1000 / 30) * 2; // ~66ms cap
+                const maxDelta = (1000 / 30) * 2;
                 const prevTime = tl.currentTime;
                 const delta = rawElapsed - prevTime;
                 const clampedDelta = Math.min(delta, maxDelta);

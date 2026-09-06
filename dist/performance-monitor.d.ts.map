@@ -1,1 +1,1 @@
-{"version":3,"file":"performance-monitor.d.ts","sourceRoot":"","sources":["../src/performance-monitor.ts"],"names":[],"mappings":"AAAA;;;GAGG;AAEH,OAAO,KAAK,EAAE,qBAAqB,EAAoC,qBAAqB,EAAE,MAAM,YAAY,CAAC;AAKjH,wBAAgB,wBAAwB,CACtC,WAAW,EAAE,qBAAqB,GACjC,qBAAqB,CA+FvB"}
+{"version":3,"file":"performance-monitor.d.ts","sourceRoot":"","sources":["../src/performance-monitor.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,qBAAqB,EAAoC,qBAAqB,EAAE,MAAM,YAAY,CAAC;AAKjH,wBAAgB,wBAAwB,CACtC,WAAW,EAAE,qBAAqB,GACjC,qBAAqB,CA+FvB"}

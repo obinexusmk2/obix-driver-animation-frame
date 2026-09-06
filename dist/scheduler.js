@@ -1,7 +1,3 @@
-/**
- * Adaptive Frame Scheduler
- * Intelligent scheduling that syncs with display refresh rate and dynamically adjusts FPS.
- */
 export function createScheduler(environment, config) {
     let targetFPS = Math.max(1, config.targetFPS ?? 60);
     let detectedRefreshRate = 60;
@@ -10,7 +6,6 @@ export function createScheduler(environment, config) {
     let loopId = null;
     let loopTick = null;
     const pending = new Map();
-    // Detect refresh rate by measuring consecutive rAF deltas
     if (config.adaptToRefreshRate && environment.isBrowser && environment.hasRAF) {
         const samples = [];
         let prevTimestamp = 0;
@@ -25,7 +20,6 @@ export function createScheduler(environment, config) {
                 environment.requestFrame(measure);
             }
             else {
-                // Use median of middle samples for stability
                 const sorted = samples.slice(1).sort((a, b) => a - b);
                 if (sorted.length > 0) {
                     const median = sorted[Math.floor(sorted.length / 2)];
@@ -41,14 +35,12 @@ export function createScheduler(environment, config) {
     function step(timestamp) {
         const minFrameTime = 1000 / targetFPS;
         if (lastFrameTimestamp > 0 && timestamp - lastFrameTimestamp < minFrameTime * 0.8) {
-            // Too early — re-request without processing
             if (loopTick) {
                 loopId = environment.requestFrame(step);
             }
             return;
         }
         lastFrameTimestamp = timestamp;
-        // Execute one-shot pending callbacks
         if (pending.size > 0) {
             const callbacks = Array.from(pending.entries());
             pending.clear();
@@ -56,7 +48,6 @@ export function createScheduler(environment, config) {
                 cb(timestamp);
             }
         }
-        // Execute loop tick
         if (loopTick) {
             loopTick(timestamp);
             loopId = environment.requestFrame(step);
@@ -66,7 +57,6 @@ export function createScheduler(environment, config) {
         request(callback) {
             const id = ++idCounter;
             pending.set(id, callback);
-            // Ensure a frame is scheduled if no loop is running
             if (loopId === null) {
                 loopId = environment.requestFrame((ts) => {
                     loopId = null;

@@ -1,7 +1,3 @@
-/**
- * Declarative Animation Graph
- * DAG-based timeline composition: sequence, parallel, stagger, and timeline nodes.
- */
 let nodeIdCounter = 0;
 function buildNode(config, timelineEngine) {
     const id = ++nodeIdCounter;
@@ -12,7 +8,6 @@ function buildNode(config, timelineEngine) {
             ...config.timeline,
             onFrame: config.onFrame ?? config.timeline.onFrame,
         });
-        // Start paused — graph controls playback
         timeline.pause();
     }
     return {
@@ -123,7 +118,6 @@ function updateNodeProgress(node) {
                 }
             }
             node.progress = (completedCount + currentChildProgress) / node.children.length;
-            // Start next child in sequence when current finishes
             if (completedCount > 0 && completedCount < node.children.length) {
                 const nextChild = node.children[completedCount];
                 if (nextChild.state === 'idle') {
@@ -183,7 +177,6 @@ export function createAnimationGraph(timelineEngine) {
                     updateNodeProgress(node);
                 }
             }
-            // Clean up finished graphs
             for (const [id, node] of graphs) {
                 if (node.state === 'finished') {
                     graphs.delete(id);

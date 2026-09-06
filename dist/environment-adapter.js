@@ -1,8 +1,3 @@
-/**
- * Universal Environment Adapter
- * Isomorphic rAF/performance.now polyfills for browser, Node.js, and SSR.
- */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const _global = globalThis;
 export function createEnvironmentAdapter() {
     const isBrowser = typeof _global.window !== 'undefined' &&
@@ -10,11 +5,9 @@ export function createEnvironmentAdapter() {
     const isNode = typeof _global.process !== 'undefined' &&
         typeof _global.process.versions?.node === 'string';
     const hasRAF = typeof _global.requestAnimationFrame === 'function';
-    // Monotonic time source
     const now = typeof performance !== 'undefined' && typeof performance.now === 'function'
         ? () => performance.now()
         : () => Date.now();
-    // Frame request/cancel
     let idCounter = 0;
     const timers = new Map();
     const requestFrame = hasRAF

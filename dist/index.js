@@ -1,8 +1,3 @@
-/**
- * Animation Frame Driver
- * requestAnimationFrame scheduling, timeline orchestration, and animation management.
- */
-// Re-export sub-module factories
 export { createEnvironmentAdapter } from './environment-adapter.js';
 export { easings, getEasing, createCubicBezier } from './easings.js';
 export { createScheduler } from './scheduler.js';
@@ -23,7 +18,6 @@ import { createCleanupManager } from './cleanup-manager.js';
 import { createPerformanceMonitor } from './performance-monitor.js';
 export function createAnimationFrameDriver(config = {}) {
     const targetFPS = Math.max(1, config.targetFPS ?? 60);
-    // Create sub-modules
     const environment = createEnvironmentAdapter();
     const scheduler = createScheduler(environment, {
         targetFPS,
@@ -37,13 +31,11 @@ export function createAnimationFrameDriver(config = {}) {
     const performanceMonitor = config.enableMetrics !== false
         ? createPerformanceMonitor(environment)
         : null;
-    // Internal state
     let initializedAt = 0;
     let frameCount = 0;
     let paused = false;
     let idCounter = 0;
     const pendingCallbacks = new Map();
-    // Wire visibility controller to auto-pause
     visibilityController.onVisibilityChange((visible) => {
         if (visible) {
             if (paused)
@@ -59,16 +51,13 @@ export function createAnimationFrameDriver(config = {}) {
             }
         }
     });
-    // Main tick function driven by scheduler
     function mainTick(timestamp) {
         if (paused)
             return;
         performanceMonitor?.beginFrame();
         frameCount++;
-        // Tick timeline engine and animation graph
         timelineEngine.tick(timestamp);
         animationGraph.tick(timestamp);
-        // Execute pending one-shot callbacks
         if (pendingCallbacks.size > 0) {
             const callbacks = Array.from(pendingCallbacks.entries());
             pendingCallbacks.clear();
@@ -79,7 +68,6 @@ export function createAnimationFrameDriver(config = {}) {
         performanceMonitor?.endFrame();
     }
     const driver = {
-        // Lifecycle
         async initialize() {
             initializedAt = Date.now();
             frameCount = 0;
@@ -100,7 +88,6 @@ export function createAnimationFrameDriver(config = {}) {
             initializedAt = 0;
             frameCount = 0;
         },
-        // Frame scheduling
         scheduleFrame(callback) {
             const id = ++idCounter;
             pendingCallbacks.set(id, callback);
@@ -118,7 +105,6 @@ export function createAnimationFrameDriver(config = {}) {
         getElapsedTime() {
             return initializedAt === 0 ? 0 : Date.now() - initializedAt;
         },
-        // Playback controls
         pause() {
             paused = true;
             scheduler.stopLoop();
@@ -145,26 +131,21 @@ export function createAnimationFrameDriver(config = {}) {
         setSpeed(multiplier) {
             playbackController.setSpeed(multiplier);
         },
-        // Timeline
         createTimeline(config) {
             return timelineEngine.create(config);
         },
-        // Animation graph
         buildAnimationGraph(root) {
             return animationGraph.build(root);
         },
-        // Easing
         getEasing(name) {
             return getEasing(name);
         },
         createCubicBezier(x1, y1, x2, y2) {
             return createCubicBezier(x1, y1, x2, y2);
         },
-        // Cleanup
         trackCleanup(target, cleanup) {
             cleanupManager.track(target, cleanup);
         },
-        // Metrics
         getMetrics() {
             if (!performanceMonitor) {
                 return {
@@ -180,7 +161,6 @@ export function createAnimationFrameDriver(config = {}) {
             }
             return performanceMonitor.getMetrics();
         },
-        // Sub-module accessors
         get scheduler() { return scheduler; },
         get timelineEngine() { return timelineEngine; },
         get visibilityController() { return visibilityController; },

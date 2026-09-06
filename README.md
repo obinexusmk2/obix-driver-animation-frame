@@ -303,6 +303,25 @@ driver.environment.isNode;    // true in Node
 
 ---
 
+## Documentation
+
+In-depth guides live in [`docs/`](docs/):
+
+| # | Guide |
+|---|-------|
+| 01 | [Overview](docs/01-overview.md) |
+| 02 | [Installation and Setup](docs/02-installation-and-setup.md) |
+| 03 | [Frame Scheduling](docs/03-frame-scheduling.md) |
+| 04 | [Timelines](docs/04-timelines.md) |
+| 05 | [Animation Graphs](docs/05-animation-graphs.md) |
+| 06 | [Playback Controls](docs/06-playback-controls.md) |
+| 07 | [Easing Functions](docs/07-easing-functions.md) |
+| 08 | [Performance and Metrics](docs/08-performance-and-metrics.md) |
+| 09 | [Environment and SSR Support](docs/09-environment-and-ssr.md) |
+| 10 | [Cleanup and Best Practices](docs/10-cleanup-and-best-practices.md) |
+
+---
+
 ## License
 
 MIT — OBINexus <okpalan@protonmail.com>

@@ -1,7 +1,3 @@
-/**
- * Performance Metrics & DevTools
- * Real-time FPS monitoring, frame time histograms, and dropped frame detection.
- */
 const HISTOGRAM_BUCKETS = [0, 4, 8, 16, 33, 50, 100];
 const WINDOW_SIZE = 120;
 export function createPerformanceMonitor(environment) {
@@ -17,7 +13,6 @@ export function createPerformanceMonitor(environment) {
         if (frameTimes.length > WINDOW_SIZE) {
             frameTimes.shift();
         }
-        // Place in histogram bucket
         let placed = false;
         for (let i = 0; i < HISTOGRAM_BUCKETS.length - 1; i++) {
             if (ms >= HISTOGRAM_BUCKETS[i] && ms < HISTOGRAM_BUCKETS[i + 1]) {
@@ -27,7 +22,6 @@ export function createPerformanceMonitor(environment) {
             }
         }
         if (!placed) {
-            // Last bucket: >= 100ms
             histogramCounts[HISTOGRAM_BUCKETS.length - 1]++;
         }
     }
@@ -49,11 +43,9 @@ export function createPerformanceMonitor(environment) {
             lastFrameTime = elapsed;
             addFrameTime(elapsed);
             const avg = getAverage();
-            // Dropped frame: took more than 1.5x expected 16.67ms frame
             if (elapsed > 25) {
                 droppedFrames += Math.max(0, Math.floor(elapsed / 16.67) - 1);
             }
-            // Jank: frame > 2x rolling average
             if (avg > 0 && elapsed > avg * 2) {
                 jankCount++;
             }

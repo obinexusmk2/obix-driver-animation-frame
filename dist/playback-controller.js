@@ -1,7 +1,3 @@
-/**
- * Playback Control API
- * Full transport controls: play, pause, resume, seek, reverse, speed.
- */
 export function createPlaybackController(environment, timelineEngine, scheduler) {
     let state = 'idle';
     let speed = 1;
@@ -46,7 +42,6 @@ export function createPlaybackController(environment, timelineEngine, scheduler)
         },
         seek(timeMs) {
             currentTime = Math.max(0, timeMs);
-            // Snap to nearest frame boundary
             const frameInterval = 1000 / 60;
             currentTime = Math.round(currentTime / frameInterval) * frameInterval;
             timelineEngine.tick(currentTime);
